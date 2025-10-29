@@ -1,0 +1,32 @@
+
+services:
+  - type: web
+    name: betvision-server
+    env: node
+    plan: starter
+    region: oregon
+    rootDir: betvision/server
+    buildCommand: "npm install && npm run build"
+    startCommand: "npm run start"
+    runtime: node
+    autoDeploy: true
+    envVars:
+      - key: API_FOOTBALL_KEY
+        sync: false
+      - key: ODDS_API_KEY
+        sync: false
+      - key: PLAN_FREE_DAILY_LIMIT
+        value: "5"
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_PRICE_ID_PRO
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: FIREBASE_PROJECT_ID
+        sync: false
+      - key: GOOGLE_APPLICATION_CREDENTIALS
+        value: "/opt/render/secrets/serviceAccount.json"
+    secretFiles:
+      - name: serviceAccount.json
+        path: /opt/render/secrets/serviceAccount.json
